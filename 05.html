@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05 touchmove test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.min.css">
+  <style>
+    html, body, #app {
+      width: 100%;
+      height: 100%;
+    }
+    #app {
+      position: relative;
+      background-image: url(img/uv_512_2.jpg);
+      background-size: auto 100%;
+    }
+    .info {
+      border: 2px solid black;
+      background-color:white;
+      font-size: 60px;
+      position: absolute;
+      bottom: 0;
+      right :0;
+      padding: 10px;
+    }
+    .swiper-container {
+      position: relative;
+      left: 0;
+      width: 50%;
+      height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    .hit-box{
+      width: 20%;
+      height: 100%;
+      background-color: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="info">milkmidi</div>
+    <div class="hit-box"></div>
+    <div class="swiper-container">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">Slide 1</div>
+        <div class="swiper-slide">Slide 2</div>
+        <div class="swiper-slide">Slide 3</div>
+        <div class="swiper-slide">Slide 4</div>
+        <div class="swiper-slide">Slide 5</div>
+        <div class="swiper-slide">Slide 6</div>
+        <div class="swiper-slide">Slide 7</div>
+        <div class="swiper-slide">Slide 8</div>
+        <div class="swiper-slide">Slide 9</div>
+        <div class="swiper-slide">Slide 10</div>
+      </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js"></script>
+<script>
+  var swiper = new Swiper('.swiper-container', {
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  });
+  var info = document.querySelector('.info');
+  var app = document.getElementById('app');
+  function onResize(){
+    info.innerHTML = window.innerWidth + 'x' + window.innerHeight;
+    app.style.height = window.innerHeight + 'px';
+    setTimeout(() => {
+      window.scroll(0,0);
+    }, 0);
+  }
+  onResize();
+  window.addEventListener('resize', onResize);
+
+  // prevent ios landscape touchmove issus
+  var hitBox = document.querySelector('.hit-box');
+  hitBox.addEventListener('touchmove', function(e) {
+    console.log('hitBox');
+    e.preventDefault();
+    // e.stopPropagation();
+  });
+
+  app.addEventListener('touchmove', function(e) {
+    console.log(e.target);
+    e.preventDefault();
+  });
+  // prevent ios gestures zoom
+  document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+  });
+</script>
+</html>
