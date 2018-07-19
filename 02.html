@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02 ios landscape touchmove issus</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <style>
+    html, body, #app {
+      width: 100%;
+      height: 100%;
+    }
+    #app {
+      position: relative;
+      background-image: url(img/uv_512_2.jpg);
+      background-size: auto 100%;
+    }
+    .info {
+      border: 2px solid black;
+      background-color:white;
+      font-size: 60px;
+      position: absolute;
+      bottom: 0;
+      right :0;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="info">milkmidi</div>
+  </div>
+</body>
+<script>
+  var info = document.querySelector('.info');
+  var app = document.getElementById('app');
+  function onResize(){
+    info.innerHTML = window.innerWidth + 'x' + window.innerHeight;
+    app.style.height = window.innerHeight + 'px';
+    setTimeout(() => {
+      window.scroll(0,0);
+    }, 0);
+  }
+  onResize();
+  window.addEventListener('resize', onResize);
+
+  // prevent ios landscape touchmove issus
+  app.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+  });
+  // prevent ios gestures zoom
+  document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+  });
+</script>
+</html>
